@@ -64,5 +64,7 @@ public class ListenerFreeze implements Listener{
 		frees.put(name, new Timer(time));
 	}
 	
-
+	public static void removePlayer(String name){
+		frees.remove(name);
+	}
 }

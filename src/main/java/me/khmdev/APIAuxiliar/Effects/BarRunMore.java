@@ -23,9 +23,9 @@ public class BarRunMore extends BukkitRunnable {
 		tempo = msec;
 		func=f;
 		if(atras){
-			AuxPackets.sendPacketMore(pl, BossBar.createPacket(txt, 200));
+			AuxPackets.sendPacketMore(pl, BossBar.createPacket(pl[0].getLocation(),txt, 200));
 		}else{
-			AuxPackets.sendPacketMore(pl, BossBar.createPacket(txt, 0));
+			AuxPackets.sendPacketMore(pl, BossBar.createPacket(pl[0].getLocation(),txt, 0));
 		}
 	}
 
@@ -42,18 +42,18 @@ public class BarRunMore extends BukkitRunnable {
 
 			Object packet = null;
 			if(atras){
-				AuxPackets.sendPacketMore(pl, BossBar.createPacket(txt, 200-h));
+				AuxPackets.sendPacketMore(pl, BossBar.createPacket(pl[0].getLocation(),txt, 200-h));
 			}else{
-				AuxPackets.sendPacketMore(pl, BossBar.createPacket(txt, h));
+				AuxPackets.sendPacketMore(pl, BossBar.createPacket(pl[0].getLocation(),txt, h));
 			}
 			AuxPackets.sendPacketMore(pl, packet);
 		} else {
 			if (primer) {
 				Object packet = null;
 				if(atras){
-					AuxPackets.sendPacketMore(pl, BossBar.createPacket(fin, 0));
+					AuxPackets.sendPacketMore(pl, BossBar.createPacket(pl[0].getLocation(),fin, 0));
 				}else{
-					AuxPackets.sendPacketMore(pl, BossBar.createPacket(fin, 200));
+					AuxPackets.sendPacketMore(pl, BossBar.createPacket(pl[0].getLocation(),fin, 200));
 				}
 				AuxPackets.sendPacketMore(pl, packet);
 

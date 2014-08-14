@@ -10,15 +10,17 @@ import me.khmdev.APIBase.API;
 import net.minecraft.server.v1_7_R3.DataWatcher;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class BossBar {
 
 	private static final int ENTITY_ID = 1234;
+
 	private static HashMap<String, Object> Bars = new HashMap<>();
 	private static List<BarRun> runs = new LinkedList<>();
-
-	public static Object createPacket(String txt, int h) {
+	
+	public static Object createPacket(Location l,String txt, int h) {
 		
 		Object packet = null;
 		try {
@@ -28,9 +30,9 @@ public class BossBar {
 			}
 			AuxPackets.setValue(packet, "a", ENTITY_ID);
 			AuxPackets.setValue(packet, "b", (byte) 63);
-			AuxPackets.setValue(packet, "c", (int) 0);
-			AuxPackets.setValue(packet, "d", (int) -10);
-			AuxPackets.setValue(packet, "e", (int) 0);
+			AuxPackets.setValue(packet, "c", (int) Math.floor(l.getBlockX() * 32.0D));
+			AuxPackets.setValue(packet, "d", (int) 0);
+			AuxPackets.setValue(packet, "e", (int) Math.floor(l.getBlockZ() * 32.0D));
 			AuxPackets.setValue(packet, "f", (byte) 0);
 			AuxPackets.setValue(packet, "g", (byte) 0);
 			AuxPackets.setValue(packet, "h", (byte) 0);
@@ -60,7 +62,7 @@ public class BossBar {
 	public static void sendBarToPlayer(Player pl, String txt, int Healt) {
 		txt=reemplace(txt, pl.getName());
 
-		Object packet = createPacket(txt, Healt);
+		Object packet = createPacket(pl.getLocation(),txt, Healt);
 		AuxPackets.sendPacket(pl, packet);
 		Bars.put(pl.getName(), packet);
 	
@@ -92,9 +94,10 @@ public class BossBar {
 		return run;
 	}
 	public static void sendBarToAll(String txt, int Healt) {
-		Object packet = createPacket(txt, Healt);
 
 		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+			Object packet = createPacket(player.getLocation(),txt, Healt);
+
 			AuxPackets.sendPacket(player, packet);
 			Bars.put(player.getName(), packet);
 
@@ -102,9 +105,9 @@ public class BossBar {
 	}
 	
 	public static void sendBarToGroup(String txt, int Healt,List<Player> pls) {
-		Object packet = createPacket(txt, Healt);
 
 		for (Player player : pls) {
+			Object packet = createPacket(player.getLocation(),txt, Healt);
 			AuxPackets.sendPacket(player, packet);
 			Bars.put(player.getName(), packet);
 

@@ -16,7 +16,8 @@ public class Timer {
 	}
 	
 	public boolean isEnd(){
-		return (System.currentTimeMillis() - init) >= timeout;
+		return timeout!=-1?
+				(System.currentTimeMillis() - init) >= timeout:false;
 	}
 	
 	public long getLeftSeconds(){
