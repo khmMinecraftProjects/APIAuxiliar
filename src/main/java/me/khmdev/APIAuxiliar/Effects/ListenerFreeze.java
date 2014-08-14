@@ -14,57 +14,66 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class ListenerFreeze implements Listener{
-	
-	public static void init(JavaPlugin plug){
+public class ListenerFreeze implements Listener {
+
+	public static void init(JavaPlugin plug) {
 		plug.getServer().getPluginManager()
-		.registerEvents(new ListenerFreeze(), plug);
+				.registerEvents(new ListenerFreeze(), plug);
 	}
-	private static HashMap<String, Timer> frees=new HashMap<>();
-	
-	@EventHandler(priority=EventPriority.HIGH)
-	public void move(PlayerMoveEvent e){
-		if(e.getFrom().getX()!=e.getTo().getX()||
-				e.getFrom().getZ()!=e.getTo().getZ()){
-			Player pl=e.getPlayer();
-			String name=pl.getName();
-			if(!frees.containsKey(name)){return;}
-			Timer t=frees.get(name);
-			if(t.isEnd()){
+
+	private static HashMap<String, Timer> frees = new HashMap<>();
+
+	@EventHandler(priority = EventPriority.HIGH)
+	public void move(PlayerMoveEvent e) {
+		if (e.getFrom().getX() != e.getTo().getX()
+				|| e.getFrom().getZ() != e.getTo().getZ()) {
+			Player pl = e.getPlayer();
+			String name = pl.getName();
+			if (!frees.containsKey(name)) {
+				return;
+			}
+			Timer t = frees.get(name);
+			if (t.isEnd()) {
 				frees.remove(name);
 				return;
 			}
-			pl.sendMessage("Espere "+t.getLeftSeconds()+" segundos");
+			if (t.getLeftSeconds() >= 0) {
+				pl.sendMessage("Espere " + t.getLeftSeconds() + " segundos");
+			}
 			pl.teleport(e.getFrom());
 		}
-			
+
 	}
-	@EventHandler(priority=EventPriority.HIGH)
+
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerInteract(PlayerInteractEntityEvent event) {
 		Block(event, event.getPlayer());
 	}
-		
-	@EventHandler(priority=EventPriority.HIGH)
-	public void move(PlayerInteractEvent event){
+
+	@EventHandler(priority = EventPriority.HIGH)
+	public void move(PlayerInteractEvent event) {
 		Block(event, event.getPlayer());
 	}
-	private static void Block(Cancellable event,Player pl){
-		String name=pl.getName();
-		if(!frees.containsKey(name)){return;}
-		Timer t=frees.get(name);
-		if(t.isEnd()){
+
+	private static void Block(Cancellable event, Player pl) {
+		String name = pl.getName();
+		if (!frees.containsKey(name)) {
+			return;
+		}
+		Timer t = frees.get(name);
+		if (t.isEnd()) {
 			frees.remove(name);
 			return;
 		}
-		pl.sendMessage("Espere "+t.getLeftSeconds()+" segundos");
+		pl.sendMessage("Espere " + t.getLeftSeconds() + " segundos");
 		event.setCancelled(true);
 	}
-	
-	public static void addPlayer(String name,long time){
+
+	public static void addPlayer(String name, long time) {
 		frees.put(name, new Timer(time));
 	}
-	
-	public static void removePlayer(String name){
+
+	public static void removePlayer(String name) {
 		frees.remove(name);
 	}
 }
