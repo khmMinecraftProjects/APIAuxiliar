@@ -1,0 +1,23 @@
+name: ${project.name}
+author: khmDEV
+main: ${project.groupId}.${project.artifactId}.init
+version: ${project.version}
+commands:
+   apip:
+      permission: apipl.command
+      permission-message: No tienes permisos <permission>
+   equipar:
+      permission: equipar.command
+      permission-message: No tienes permisos <permission>
+permissions:
+         apii.command:
+                 default: op
+         equip.command:
+                 default: op
+         aplipl.command:
+                 default: op
+         desaparecer.desactivado:
+                 default: op 
+         equipar.command:
+                 default: op 
+softdepend: [TagAPI,APIBase,ProtocolLib]
