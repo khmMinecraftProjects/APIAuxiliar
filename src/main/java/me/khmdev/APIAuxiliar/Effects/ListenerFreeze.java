@@ -65,7 +65,10 @@ public class ListenerFreeze implements Listener {
 			frees.remove(name);
 			return;
 		}
-		pl.sendMessage("Espere " + t.getLeftSeconds() + " segundos");
+		if (t.getLeftSeconds() >= 0) {
+
+			pl.sendMessage("Espere " + t.getLeftSeconds() + " segundos");
+		}
 		event.setCancelled(true);
 	}
 
