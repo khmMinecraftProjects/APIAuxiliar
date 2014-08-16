@@ -16,7 +16,7 @@ public class Timer {
 	}
 	
 	public boolean isEnd(){
-		return timeout!=-1?
+		return timeout>0?
 				(System.currentTimeMillis() - init) >= timeout:false;
 	}
 	

@@ -79,4 +79,8 @@ public class ListenerFreeze implements Listener {
 	public static void removePlayer(String name) {
 		frees.remove(name);
 	}
+
+	public static boolean conteinPlayer(String name) {
+		return frees.containsKey(name);
+	}
 }

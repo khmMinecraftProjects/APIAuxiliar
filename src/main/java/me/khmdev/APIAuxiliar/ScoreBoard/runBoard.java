@@ -21,12 +21,17 @@ public class runBoard extends runKill {
 
 	// private int time=0,reload=30;
 	@Override
-	public void run() {
+	public void run() {List<IBoard> remove=new LinkedList<>();
 		for (IBoard board : boards) {
-			board.actualizar();
+			if(board!=null){board.actualizar();
 			for (Player p : board.getPlayers()) {
 				board.actualizar(p);
+			}}else{
+				remove.add(board);
 			}
+		}
+		for (IBoard iBoard : remove) {
+			boards.remove(iBoard);
 		}
 	}
 
