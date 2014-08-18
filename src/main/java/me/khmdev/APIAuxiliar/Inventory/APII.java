@@ -2,8 +2,8 @@ package me.khmdev.APIAuxiliar.Inventory;
 
 import me.khmdev.APIAuxiliar.Inventory.CustomInventorys.CItems;
 import me.khmdev.APIBase.Almacenes.Almacen;
-import me.khmdev.APIBase.Almacenes.ConfigFile;
 import me.khmdev.APIBase.Almacenes.Datos;
+import me.khmdev.APIBase.Almacenes.local.ConfigFile;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
