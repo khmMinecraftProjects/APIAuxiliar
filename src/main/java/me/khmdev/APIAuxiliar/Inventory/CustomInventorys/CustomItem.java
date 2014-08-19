@@ -33,7 +33,7 @@ public abstract class CustomItem {
 	public void execute(PlayerInteractEntityEvent event){};
 	public boolean hasPerms(HumanEntity player){
 		@SuppressWarnings("deprecation")
-		Player p=(Bukkit.getServer().getPlayer(player.getName()));
+		Player p=(Bukkit.getServer().getPlayerExact(player.getName()));
 		if(permisos!=null&&p.hasPermission(permisos)){
 			
 			p.getPlayer().sendMessage(Lang.get("CustomItem_NoPerms")
