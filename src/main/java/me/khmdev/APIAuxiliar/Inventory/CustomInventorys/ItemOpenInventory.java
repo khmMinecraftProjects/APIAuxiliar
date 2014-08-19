@@ -22,12 +22,14 @@ public class ItemOpenInventory extends CustomItem {
 	@Override
 	public void execute(InventoryClickEvent event) {
 		event.setCancelled(true);
+		if(inventory==null){event.getWhoClicked().closeInventory();return;}
 		event.getWhoClicked().openInventory(inventory);
 	}
 
 	@Override
 	public void execute(PlayerInteractEvent event) {
-		event.setCancelled(true);		
+		event.setCancelled(true);	
+		if(inventory==null){return;}
 		event.getPlayer().openInventory(inventory);
 	}
 

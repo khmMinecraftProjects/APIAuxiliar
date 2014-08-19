@@ -40,16 +40,14 @@ public class CustomInventory {
 	}
 
 	public void Request(InventoryClickEvent event) {
-		if (items == null || items.size() <= event.getSlot()) {
-			return;
-		}
-		if (items.get(event.getSlot()) == null) {
-			event.setCancelled(true);
-			return;
-		}
-		CustomItem item = items.get(event.getSlot());
-		if (item.hasPerms(event.getWhoClicked())) {
-			item.execute(event);
+
+		for (CustomItem item : items) {
+			if (item.isthis(event.getCurrentItem())) {
+				if (item.hasPerms(event.getWhoClicked())) {
+					item.execute(event);
+				}
+				return;
+			}
 		}
 
 	}
@@ -97,6 +95,10 @@ public class CustomInventory {
 
 	public boolean isthis(Inventory inv) {
 		return inventory.getName().equalsIgnoreCase(inv.getName());
+	}
+
+	public void addCustom(CustomItem custom) {
+		items.add(custom);
 	}
 
 }
