@@ -6,6 +6,8 @@ import me.khmdev.APIAuxiliar.Effects.ListenerFreeze;
 import me.khmdev.APIAuxiliar.Inventory.APII;
 import me.khmdev.APIAuxiliar.Players.APIPlayer;
 import me.khmdev.APIAuxiliar.lang.Lang;
+import me.khmdev.APIAuxiliar.whereIs.ConstantesServerSQL;
+import me.khmdev.APIAuxiliar.whereIs.SQLControl;
 import me.khmdev.APIBase.API;
 
 import org.bukkit.Bukkit;
@@ -17,7 +19,7 @@ public class init extends JavaPlugin {
 	private APII apii;
 	private APIPlayer apip;
 	private static final int timeAvisos = 60;
-
+	private static final int timeServers = 15;
 	public void onEnable() {
 		if (!hasPluging("APIBase")) {
 			getLogger().severe(
@@ -26,12 +28,28 @@ public class init extends JavaPlugin {
 			return;
 		}
 		if (API.getInstance().getSql().isEnable()) {
+			/*
+			 * Avisos
+			 */
 			Bukkit.getServer()
 					.getScheduler()
 					.runTaskTimerAsynchronously(this, new Avisos(),
 							timeAvisos * 20, timeAvisos * 20);
 			for (String s : Constantes.sql) {
 				API.getInstance().getSql().sendUpdate(s);
+			}
+			/*
+			 * Servers
+			 */
+			SQLControl sqlC = new SQLControl(API.getInstance().getSql());
+
+			Bukkit.getPluginManager().registerEvents(sqlC, this);
+			Bukkit.getServer().getScheduler()
+					.runTaskTimerAsynchronously(this, sqlC, 20, timeServers * 20);
+
+			for (String s : ConstantesServerSQL.sql) {
+				API.getInstance().getSql().sendUpdate(s);
+
 			}
 		}
 		apii = new APII(this);

@@ -40,14 +40,17 @@ public class CustomInventory {
 	}
 
 	public void Request(InventoryClickEvent event) {
-
-		for (CustomItem item : items) {
-			if (item.isthis(event.getCurrentItem())) {
-				if (item.hasPerms(event.getWhoClicked())) {
-					item.execute(event);
-				}
-				return;
-			}
+		
+		if (items == null || items.size() <= event.getSlot()) {
+			return;
+		}
+		if (items.get(event.getSlot()) == null) {
+			event.setCancelled(true);
+			return;
+		}
+		CustomItem item = items.get(event.getSlot());
+		if (item.hasPerms(event.getWhoClicked())) {
+			item.execute(event);
 		}
 
 	}
@@ -99,6 +102,17 @@ public class CustomInventory {
 
 	public void addCustom(CustomItem custom) {
 		items.add(custom);
+	}
+
+	public void clear() {
+		inventory.clear();
+		inventory = Bukkit.getServer().createInventory(null, 9, name);
+		items.clear();pos=0;
+	}
+
+	public void remove(CustomItem it) {
+		inventory.remove(it.getItem());
+		items.remove(it);
 	}
 
 }

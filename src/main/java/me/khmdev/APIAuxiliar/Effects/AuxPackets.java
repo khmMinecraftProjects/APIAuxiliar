@@ -5,9 +5,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-
-
-
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -62,12 +59,12 @@ public class AuxPackets {
 		if (packet == null||p==null) {
 			return;
 		}
-		for (int i = 0; i < p.length; i++) {
+		for (Player pl :p) {
 		try {
-			sendPacket(p[i],packet);
+			sendPacket(pl,packet);
 		} catch (Exception e) {
 			Bukkit.getLogger().warning(
-					"Error al envial packet "+ p[i].getName() + "!");
+					"Error al envial packet "+ pl.getName() + "!");
 		}
 		}
 	}

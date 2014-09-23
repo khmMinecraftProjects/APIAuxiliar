@@ -5,7 +5,6 @@ import me.khmdev.APIBase.Almacenes.Almacen;
 import me.khmdev.APIBase.Almacenes.Datos;
 import me.khmdev.APIBase.Almacenes.local.ConfigFile;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -48,8 +47,8 @@ public class APII implements Datos{
 
 			String r = args[1];
 			
-			Player pl = Bukkit.getServer().getPlayer(sender.getName());
-			if(!setInventory(pl,r)){return true;};
+			Player pl = sender instanceof Player?(Player)sender:null;
+			if(pl==null||!setInventory(pl,r)){return true;};
 
 			sender.sendMessage("Establecido inventario");
 			
@@ -63,7 +62,7 @@ public class APII implements Datos{
 
 			String r = args[1];
 
-			Player pl = Bukkit.getServer().getPlayer(sender.getName());
+			Player pl = sender instanceof Player?(Player)sender:null;
 			addInventory( pl, r);
 			
 			sender.sendMessage("Almacenado inventario");

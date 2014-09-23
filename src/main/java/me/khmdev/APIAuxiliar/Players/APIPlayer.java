@@ -60,7 +60,7 @@ public class APIPlayer {
 				sender.sendMessage(help());
 				return true;
 			}
-			Player pl = Bukkit.getServer().getPlayer(sender.getName());
+			Player pl = sender instanceof Player?(Player)sender:null;
 			if (args[0].equalsIgnoreCase("get")) {
 				if (sender.getName().equalsIgnoreCase("CONSOLE")) {
 					return true;

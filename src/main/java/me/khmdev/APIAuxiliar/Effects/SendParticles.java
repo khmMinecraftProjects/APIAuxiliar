@@ -11,14 +11,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 public class SendParticles {
+	private static Object packet = null;
 
 	public static void send(ParticleEffect effect, Location loc, int s, int a,
 			Vector locB) {
 		String name=effect.getName();
-		Object packet = null;
 		try {
-			packet = getClass("PacketPlayOutWorldParticles");
-			if (packet==null){return;}
+			if (packet==null){
+				packet = getClass("PacketPlayOutWorldParticles");
+				return;}
 			setValue(packet, "a", name);
 			setValue(packet, "b", (float) loc.getX());
 			setValue(packet, "c", (float) loc.getY()+5);
@@ -49,7 +50,7 @@ public class SendParticles {
 					1).invoke(playerConnection, packet);
 		} catch (Exception e) {
 			Bukkit.getLogger().warning(
-					"[ParticleEffect] Failed to send a particle packet to "
+					"[ParticleEffect] Error al enviar particulas "
 							+ p.getName() + "!");
 		}
 	}

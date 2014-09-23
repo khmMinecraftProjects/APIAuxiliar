@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -36,7 +37,15 @@ public class ListenItems implements Listener {
 			inv.Request(event);
 		}
 	}
-
+	@EventHandler
+	public void placeBlock(BlockPlaceEvent event) {
+		CustomItem item = CItems.getItem(event.getItemInHand());
+		if (item == null) {
+			return;
+		}
+		  event.setCancelled(true);
+		if(item.hasPerms(event.getPlayer())){item.execute(event);}
+		}
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if (event.isCancelled()

@@ -82,17 +82,18 @@ public class BarRun extends BukkitRunnable {
 			}
 		}
 	}
-
+	private static Object destroy=null;
 	private static Object getDestroyEntityPacket() {
-		Object packet = null;
 		try {
-			packet = AuxPackets.getClass("PacketPlayOutEntityDestroy");
-			AuxPackets.setValue(packet, "a", new int[] { ENTITY_ID });
+			if( destroy == null){
+				destroy = AuxPackets.getClass("PacketPlayOutEntityDestroy");
+			}
+			AuxPackets.setValue(destroy, "a", new int[] { ENTITY_ID });
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return packet;
+		return destroy;
 	}
 
 	public int getId() {

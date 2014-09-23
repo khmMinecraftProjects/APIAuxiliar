@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 
 
 public class ItemOpenInventory extends CustomItem {
-	Inventory inventory;
+	protected Inventory inventory;
 	
 	public ItemOpenInventory(ItemStack it, Inventory inv,String perms) {
 		inventory = inv;
@@ -18,7 +18,6 @@ public class ItemOpenInventory extends CustomItem {
 		inventory = inv;
 		item = it;
 	}
-
 	@Override
 	public void execute(InventoryClickEvent event) {
 		event.setCancelled(true);

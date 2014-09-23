@@ -38,10 +38,11 @@ public class InventoryBase {
 		name = string;
 
 		if (inv != null) {
-			inventory=new ItemStack[inv.length];
+			/*inventory=new ItemStack[inv.length];
 			for (int i = 0; i < inv.length; i++) {
 					inventory[i] = inv[i];
-			}
+			}*/
+			inventory=inv;
 			
 		}
 	}
