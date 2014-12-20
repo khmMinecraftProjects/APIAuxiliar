@@ -40,12 +40,12 @@
 			<version>1.7.9-R0.2</version>
 		</dependency>
 
-			<dependency>
-				<groupId>com.comphenix.protocol</groupId>
-				<artifactId>ProtocolLib</artifactId>
-				<version>3.1.0</version>
-				<scope>provided</scope>
-			</dependency>
+		<dependency>
+			<groupId>com.comphenix.protocol</groupId>
+			<artifactId>ProtocolLib</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>AuxiliarExt</groupId>
