@@ -2,9 +2,11 @@ package me.khmdev.APIAuxiliar;
 
 import me.khmdev.APIAuxiliar.Avisos.Avisos;
 import me.khmdev.APIAuxiliar.Avisos.Constantes;
+import me.khmdev.APIAuxiliar.Effects.BossBar;
 import me.khmdev.APIAuxiliar.Effects.ListenerFreeze;
 import me.khmdev.APIAuxiliar.Inventory.APII;
 import me.khmdev.APIAuxiliar.Players.APIPlayer;
+import me.khmdev.APIAuxiliar.Players.VisiblesPlayer;
 import me.khmdev.APIAuxiliar.lang.Lang;
 import me.khmdev.APIAuxiliar.whereIs.ConstantesServerSQL;
 import me.khmdev.APIAuxiliar.whereIs.SQLControl;
@@ -13,7 +15,10 @@ import me.khmdev.APIBase.API;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Scoreboard;
 
 public class init extends JavaPlugin {
 	private APII apii;
@@ -21,9 +26,11 @@ public class init extends JavaPlugin {
 	private static final int timeAvisos = 60;
 	private static final int timeServers = 15;
 	public void onEnable() {
+		Lang.init(this);
+
 		if (!hasPluging("APIBase")) {
 			getLogger().severe(
-					Lang.get("init_disable").replace("%plugin%", getName()));
+					Lang.get("init.disable").replace("%plugin%", getName()));
 			setEnabled(false);
 			return;
 		}
@@ -84,4 +91,18 @@ public class init extends JavaPlugin {
 		return false;
 	}
 
+	@Override
+	public void onDisable(){
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			VisiblesPlayer.resetearJugadores(p);
+			Scoreboard s=p.getScoreboard();
+			if(s!=null){
+				s.clearSlot(DisplaySlot.BELOW_NAME);
+				s.clearSlot(DisplaySlot.PLAYER_LIST);
+				s.clearSlot(DisplaySlot.SIDEBAR);
+				}
+		}
+		BossBar.removeBarAll();
+		SQLControl.LogeOutAll();
+	}
 }

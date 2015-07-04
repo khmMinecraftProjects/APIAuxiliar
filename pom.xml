@@ -25,6 +25,14 @@
 			<name>Comphenix Repository</name>
 			<url>http://repo.comphenix.net/content/groups/public</url>
 		</repository>
+		<repository>
+			<id>Craftbukkit-repo</id>
+			<url>http://maven.elmakers.com/repository/</url>
+		</repository>
+		<repository>
+			<id>pex-repo</id>
+			<url>http://pex-repo.zachsthings.com</url>
+		</repository>
 	</repositories>
 	<!-- Dependencies -->
 	<dependencies>
@@ -54,10 +62,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>AuxiliarExt</groupId>
+			<groupId>ru.tehkode</groupId>
 			<artifactId>PermissionsEx</artifactId>
-			<version>1</version>
-			<scope>provided</scope>
+			<version>1.22</version>
 		</dependency>
 
 		<dependency>

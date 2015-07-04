@@ -100,7 +100,17 @@ public class SQLControl extends BukkitRunnable implements Listener {
 
 	@EventHandler
 	public void logeOUT(PlayerQuitEvent e) {
-		String pl = e.getPlayer().getName();
+		LogeOut(e.getPlayer().getName());
+		
+	}
+	
+	public static void LogeOutAll(){
+		for (Player pl : Bukkit.getOnlinePlayers()) {
+			LogeOut(pl.getName());
+		}
+	}
+	
+	public static void LogeOut(String pl){
 		SQLPlayerData.setVar(pl, ConstantesServerSQL.UserServidor,
 				ConstantesServerSQL.ServerNull);
 	}

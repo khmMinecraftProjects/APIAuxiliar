@@ -3,6 +3,7 @@ package me.khmdev.APIAuxiliar.Effects;
 import java.util.HashMap;
 
 import me.khmdev.APIAuxiliar.Auxiliar.Timer;
+import me.khmdev.APIAuxiliar.lang.Lang;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -38,7 +39,7 @@ public class ListenerFreeze implements Listener {
 				return;
 			}
 			if (t.getLeftSeconds() >= 0) {
-				pl.sendMessage("Espere " + t.getLeftSeconds() + " segundos");
+				pl.sendMessage(Lang.get("ListenerFreeze.wait").replace("%time%", t.getLeftSeconds()+""));
 			}
 			pl.teleport(e.getFrom());
 		}
@@ -67,7 +68,7 @@ public class ListenerFreeze implements Listener {
 		}
 		if (t.getLeftSeconds() >= 0) {
 
-			pl.sendMessage("Espere " + t.getLeftSeconds() + " segundos");
+			pl.sendMessage(Lang.get("ListenerFreeze.wait").replace("%time%", t.getLeftSeconds()+""));
 		}
 		event.setCancelled(true);
 	}

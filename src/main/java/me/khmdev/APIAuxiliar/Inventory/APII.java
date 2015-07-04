@@ -1,6 +1,7 @@
 package me.khmdev.APIAuxiliar.Inventory;
 
 import me.khmdev.APIAuxiliar.Inventory.CustomInventorys.CItems;
+import me.khmdev.APIAuxiliar.lang.Lang;
 import me.khmdev.APIBase.Almacenes.Almacen;
 import me.khmdev.APIBase.Almacenes.Datos;
 import me.khmdev.APIBase.Almacenes.local.ConfigFile;
@@ -25,10 +26,7 @@ public class APII implements Datos{
 
 	}
 	private String help() {
-		String s = "";
-		s += "/equip  save/load (name)\n";
-		
-		return s;
+		return Lang.get("APII.help");
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
@@ -41,7 +39,7 @@ public class APII implements Datos{
 		}
 		if (args[0].equals("load")) {
 			if (args.length < 2) {
-				sender.sendMessage("No se ha introducido valores");
+				sender.sendMessage(Lang.get("APII.NoValues"));
 				return true;
 			}
 
@@ -50,13 +48,13 @@ public class APII implements Datos{
 			Player pl = sender instanceof Player?(Player)sender:null;
 			if(pl==null||!setInventory(pl,r)){return true;};
 
-			sender.sendMessage("Establecido inventario");
+			sender.sendMessage(Lang.get("APII.setInventory"));
 			
 			return true;
 		}
 		if (args[0].equals("save")) {
 			if (args.length < 2) {
-				sender.sendMessage("No se ha introducido valores");
+				sender.sendMessage(Lang.get("APII.NoValues"));
 				return true;
 			}
 
@@ -65,7 +63,7 @@ public class APII implements Datos{
 			Player pl = sender instanceof Player?(Player)sender:null;
 			addInventory( pl, r);
 			
-			sender.sendMessage("Almacenado inventario");
+			sender.sendMessage(Lang.get("APII.saveInventory"));
 
 			return true;
 		}
@@ -74,7 +72,7 @@ public class APII implements Datos{
 	}
 	public boolean setInventory(Player pl,String r){
 		if (!StandarInventorys.containInventory(r)) {
-			pl.sendMessage("No existe inventario");
+			pl.sendMessage(Lang.get("APII.noInventory"));
 			return false;
 		}
 		InventoryBase inv = StandarInventorys.getInventory(r);

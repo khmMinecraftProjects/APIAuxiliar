@@ -69,7 +69,7 @@ public class BossBar {
 	}
 
 	private static String reemplace(String s, String pl) {
-		return s.replaceAll("%name%", pl);
+		return s.replace("%name%", pl);
 	}
 
 	public static BarRun sendCargaPlayer(Player pl, String ini, String fin,

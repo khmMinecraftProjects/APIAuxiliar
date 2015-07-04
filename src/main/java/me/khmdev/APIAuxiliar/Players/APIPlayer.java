@@ -14,24 +14,15 @@ import me.khmdev.APIAuxiliar.Effects.BossBar;
 import me.khmdev.APIAuxiliar.Inventory.CustomInventorys.CItems;
 import me.khmdev.APIAuxiliar.ScoreBoard.runBoard;
 import me.khmdev.APIBase.Auxiliar.Auxiliar;
+import me.khmdev.APIAuxiliar.lang.Lang;
 
 public class APIPlayer {
 	// private static HashMap<String, PlayerData> datas = new HashMap<>();
-	private static ItemVisible enabler;
 
-	public static ItemStack getEnabler() {
-		return enabler.getItem();
-	}
 
 	public APIPlayer(JavaPlugin init) {
 		NamesTags.initNamesTag(init);
 
-		ItemStack item = new ItemStack(Material.GLASS_BOTTLE);
-		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("Visivilidad");
-		item.setItemMeta(meta);
-		enabler = new ItemVisible(item);
-		CItems.addItem(enabler);
 		/*
 		 * ScoreBoards
 		 */
@@ -41,15 +32,7 @@ public class APIPlayer {
 	}
 
 	private String help() {
-		String s = "";
-		s += "/apip <Command>\n";
-		s += "Commands:     newBar (\"texto\")\n";
-		s += "Commands:     newBarPlayer (Player) (\"texto\")\n";
-		s += "Commands:     newBarAll (\"texto\")\n";
-		s += "Commands:     removeBar\n";
-		s += "Commands:     removeBarPlayer (Player)\n";
-		s += "Commands:     removeBarAll\n";
-		return s;
+		return Lang.get("APIPlayer.help");
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
@@ -61,14 +44,7 @@ public class APIPlayer {
 				return true;
 			}
 			Player pl = sender instanceof Player?(Player)sender:null;
-			if (args[0].equalsIgnoreCase("get")) {
-				if (sender.getName().equalsIgnoreCase("CONSOLE")) {
-					return true;
-				}
-				pl.getInventory().addItem(enabler.getItem());
-				return true;
 
-			}
 			if (args[0].equalsIgnoreCase("newBar")) {
 				if (sender.getName().equalsIgnoreCase("CONSOLE")) {
 					return true;
@@ -92,7 +68,7 @@ public class APIPlayer {
 				}
 				Player pl2 = Bukkit.getServer().getPlayer(args[1]);
 				if (pl2 == null) {
-					sender.sendMessage("Player incorrecto");
+					sender.sendMessage(Lang.get("APIPlayer.NoPlayer"));
 					return true;
 				}
 				String txt = getText(args, 1, 0, 0);
@@ -146,7 +122,7 @@ public class APIPlayer {
 				}
 				Player pl2 = Bukkit.getServer().getPlayer(args[1]);
 				if (pl2 == null) {
-					sender.sendMessage("Player incorrecto");
+					sender.sendMessage(Lang.get("APIPlayer.NoPlayer"));
 					return true;
 				}
 				int tmp = Auxiliar.getNatural(args[2], -1);
@@ -214,7 +190,7 @@ public class APIPlayer {
 				}
 				Player pl2 = Bukkit.getServer().getPlayer(args[1]);
 				if (pl2 == null) {
-					sender.sendMessage("Player incorrecto");
+					sender.sendMessage(Lang.get("APIPlayer.NoPlayer"));
 					return true;
 				}
 				int tmp = Auxiliar.getNatural(args[2], -1);
@@ -267,7 +243,7 @@ public class APIPlayer {
 				}
 				Player pl2 = Bukkit.getServer().getPlayer(args[1]);
 				if (pl2 == null) {
-					sender.sendMessage("Player incorrecto");
+					sender.sendMessage(Lang.get("APIPlayer.NoPlayer"));
 					return true;
 				}
 				BossBar.removeBarPlayer(pl2);

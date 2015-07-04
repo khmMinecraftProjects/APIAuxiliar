@@ -1,6 +1,6 @@
 package me.khmdev.APIAuxiliar.Inventory.CustomInventorys;
 
-import me.khmdev.APIEconomy.lang.Lang;
+import me.khmdev.APIAuxiliar.lang.Lang;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
@@ -39,7 +39,7 @@ public abstract class CustomItem {
 		Player p=(Bukkit.getServer().getPlayerExact(player.getName()));
 		if(permisos!=null&&p.hasPermission(permisos)){
 			
-			p.getPlayer().sendMessage(Lang.get("CustomItem_NoPerms")
+			p.getPlayer().sendMessage(Lang.get("CustomItem.NoPerms")
 					.replace("%perms%", permisos));				
 			return false;
 		}	
